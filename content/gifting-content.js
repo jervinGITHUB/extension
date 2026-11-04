@@ -1,5 +1,5 @@
 /**
- * NMC_PATHAN — In-Page Roblox Gifting Feature
+ * DVN_Jerv — In-Page Roblox Gifting Feature
  * Injects an authentic "Gift" button directly below the "Buy" button on Roblox catalog/bundle pages,
  * and handles the visual Roblox Gifting confirmation modal & success celebration popup.
  */

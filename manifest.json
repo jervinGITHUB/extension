@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "NMC_PATHAN",
+  "name": "DVN_Jerv",
   "version": "1.0",
-  "description": "NMC_PATHAN — Client-side Robux display, profile badge, purchase modal, in-page Gifting for Korblox and accessories, Send Robux, and transaction previews for roblox.com.",
+  "description": "DVN_Jerv — Client-side Robux display, profile badge, purchase modal, in-page Gifting for Korblox and accessories, Send Robux, and transaction previews for roblox.com.",
   "minimum_chrome_version": "111",
   "permissions": ["scripting", "activeTab", "storage", "cookies", "alarms"],
   "host_permissions": [
@@ -25,7 +25,7 @@
   },
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "NMC_PATHAN",
+    "default_title": "DVN_Jerv",
     "default_icon": {
       "16": "icons/nmc-16.png",
       "32": "icons/nmc-32.png",
