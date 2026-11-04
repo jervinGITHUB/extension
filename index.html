@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NMC_PATHAN — Roblox UI &amp; Gifting Suite</title>
+  <meta name="description" content="NMC_PATHAN — Robux &amp; UI Tweaks Suite with In-Page Roblox Gifting for Korblox and Accessories" />
+  <meta property="og:title" content="NMC_PATHAN — Roblox UI &amp; Gifting Suite" />
+  <meta property="og:description" content="NMC_PATHAN — Robux &amp; UI Tweaks Suite with In-Page Roblox Gifting for Korblox and Accessories" />
+  <link rel="icon" type="image/png" href="/icons/nmc-48.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/popup/popup.css" />
+  <link rel="stylesheet" href="/popup/cookie-viewer.css" />
+  <link rel="stylesheet" href="/content/gifting-content.css" />
+  <style>
+    :root {
+      --bg-dark: #0e1015;
+      --surface-dark: #191b1d;
+      --surface-card: #232527;
+      --accent-green: #00b06f;
+      --border-dark: rgba(255, 255, 255, 0.1);
+      --text-muted: #9ba1a6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      font-family: "Builder Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Simulator Bar */
+    .sim-navbar {
+      background: #111317;
+      border-bottom: 1px solid var(--border-dark);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      z-index: 100;
+    }
+
+    .sim-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sim-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .sim-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .sim-badge {
+      font-size: 11px;
+      background: rgba(0, 176, 111, 0.2);
+      color: var(--accent-green);
+      border: 1px solid rgba(0, 176, 111, 0.4);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .sim-modes {
+      display: flex;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-dark);
+    }
+
+    .sim-mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .sim-mode-btn.active {
+      background: var(--surface-card);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .sim-mode-btn:hover:not(.active) {
+      color: #ffffff;
+    }
+
+    /* Main Simulator Workspace */
+    .sim-workspace {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 16px;
+      gap: 28px;
+      overflow-x: auto;
+    }
+
+    /* Container for Roblox Page Simulator */
+    .roblox-sim-container {
+      width: 100%;
+      max-width: 960px;
+      background: #191b1d;
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Roblox Browser Header Bar */
+    .roblox-browser-bar {
+      background: #232527;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .browser-dot.red { background: #ff5f56; }
+    .browser-dot.yellow { background: #ffbd2e; }
+    .browser-dot.green { background: #27c93f; }
+
+    .browser-url-bar {
+      flex: 1;
+      background: #111317;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #9ba1a6;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .browser-url-text {
+      color: #ffffff;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .roblox-item-switcher {
+      background: #393b3d;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Roblox Page Header (Navigation) */
+    .roblox-nav-header {
+      background: #111216;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .roblox-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .roblox-logo-text {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .roblox-nav-links {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c7caced4;
+    }
+
+    .roblox-nav-link.active {
+      color: #fff;
+      border-bottom: 2px solid #fff;
+      padding-bottom: 2px;
+    }
+
+    .roblox-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .roblox-balance-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .roblox-user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #393b3d;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Roblox Item Page Body */
+    .roblox-item-page {
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .roblox-item-page {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 24px;
+      }
+    }
+
+    /* Item Thumbnail Frame */
+    .roblox-item-viewer {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .roblox-thumb-box {
+      width: 100%;
+      aspect-ratio: 1;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.4) 100%), #151619;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .roblox-thumb-img {
+      max-width: 86%;
+      max-height: 86%;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.7));
+      transition: transform 0.3s ease;
+    }
+
+    .roblox-thumb-box:hover .roblox-thumb-img {
+      transform: scale(1.04);
+    }
+
+    .roblox-3d-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Item Details Section */
+    .roblox-item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .item-type-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .item-name-heading {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #ffffff;
+      margin-top: -8px;
+    }
+
+    .item-creator-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .item-creator-link {
+      color: #00a2ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .item-rating-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .item-stars {
+      color: #ffb800;
+      display: flex;
+      gap: 2px;
+    }
+
+    /* Price & Purchase Action Card */
+    .roblox-purchase-card {
+      background: #232527;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .roblox-price-display {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .roblox-price-amount {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .roblox-glyph-lg {
+      color: #00b06f;
+      font-size: 20px;
+      font-weight: 900;
+      background: rgba(0, 176, 111, 0.15);
+      border: 1px solid rgba(0, 176, 111, 0.35);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    /* The actual Roblox Buy button */
+    .roblox-buy-btn {
+      width: 100%;
+      height: 44px;
+      background: #00b06f;
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.1) 100%);
+      border: 1px solid rgba(0, 176, 111, 0.6);
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 176, 111, 0.35);
+      transition: all 0.15s ease;
+    }
+
+    .roblox-buy-btn:hover {
+      background: #00c67d;
+      transform: translateY(-1px);
+    }
+
+    .item-desc-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 6px;
+    }
+
+    /* Container for extension popup view */
+    .popup-preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup-frame-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+
+    /* Feature Note Callout */
+    .in-page-callout {
+      background: rgba(0, 176, 111, 0.08);
+      border: 1px solid rgba(0, 176, 111, 0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #c2eedc;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+  <script src="/chrome-polyfill.js"></script>
+</head>
+<body>
+
+  <!-- Top Simulator Toolbar -->
+  <header class="sim-navbar">
+    <div class="sim-brand">
+      <img src="/icons/nmc-48.png" alt="NMC" class="sim-logo" />
+      <span class="sim-title">NMC_PATHAN</span>
+      <span class="sim-badge">Extension &amp; Roblox In-Page Gifting</span>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="sim-modes" role="tablist">
+      <button class="sim-mode-btn active" id="btn-mode-roblox" type="button">
+        <i class="fas fa-globe"></i> Roblox Item Page (In-Page Gift)
+      </button>
+      <button class="sim-mode-btn" id="btn-mode-popup" type="button">
+        <i class="fas fa-window-restore"></i> Extension Popup
+      </button>
+      <button class="sim-mode-btn" id="btn-mode-split" type="button">
+        <i class="fas fa-columns"></i> Side-by-Side View
+      </button>
+    </div>
+  </header>
+
+  <!-- Simulator Main Workspace -->
+  <main class="sim-workspace" id="sim-workspace">
+
+    <!-- 1. Simulated Roblox Item Page (Korblox, Headless, Accessories) -->
+    <section class="roblox-sim-container" id="section-roblox-page">
+      <!-- Browser Address Bar -->
+      <div class="roblox-browser-bar">
+        <div class="browser-dots">
+          <span class="browser-dot red"></span>
+          <span class="browser-dot yellow"></span>
+          <span class="browser-dot green"></span>
+        </div>
+        <div class="browser-url-bar">
+          <i class="fas fa-lock" style="color:#00b06f; font-size:11px;"></i>
+          <span class="browser-url-text" id="browser-url-label">https://www.roblox.com/bundles/192/Korblox-Deathspeaker</span>
+        </div>
+
+        <!-- Preset Switcher -->
+        <select id="item-preset-select" class="roblox-item-switcher" title="Switch Roblox Item or Character">
+          <option value="192">Korblox Deathspeaker (17,000 R$)</option>
+          <option value="201">Headless Horseman (31,000 R$)</option>
+          <option value="21070012">Dominus Empyreus (69,000,000 R$)</option>
+          <option value="1365767">Valkyrie Helm (250,000 R$)</option>
+          <option value="494291269">Super Super Happy Face (185,000 R$)</option>
+          <option value="11748356">Clockwork's Shades (420,000 R$)</option>
+          <option value="1031429">Fiery Horns of the Netherworld (95,000 R$)</option>
+          <option value="1285307">Sparkle Time Fedora (1,200,000 R$)</option>
+        </select>
+      </div>
+
+      <!-- Roblox Page Top Nav -->
+      <div class="roblox-nav-header">
+        <div class="roblox-nav-left">
+          <span class="roblox-logo-text">ROBLOX</span>
+          <div class="roblox-nav-links">
+            <span class="roblox-nav-link">Discover</span>
+            <span class="roblox-nav-link active">Marketplace</span>
+            <span class="roblox-nav-link">Create</span>
+          </div>
+        </div>
+        <div class="roblox-nav-right">
+          <div class="roblox-balance-pill" title="Current Robux Balance">
+            <span style="color:#00b06f; font-weight:900;">R$</span>
+            <span id="nav-robux-amount">50,000</span>
+          </div>
+          <div class="roblox-user-avatar" title="Logged in as Player">P</div>
+        </div>
+      </div>
+
+      <!-- Item Detail Page Content -->
+      <div class="roblox-item-page">
+        <!-- Thumbnail Showcase -->
+        <div class="roblox-item-viewer">
+          <div class="roblox-thumb-box">
+            <img
+              id="sim-item-img"
+              class="roblox-thumb-img"
+              src="https://tr.rbxcdn.com/180DAY-1a6296d91da3295f70a1cb64bbfb9f1d/420/420/Avatar/Webp/noFilter"
+              alt="Korblox Deathspeaker"
+            />
+            <div class="roblox-3d-badge">
+              <i class="fas fa-cube"></i> 3D
+            </div>
+          </div>
+        </div>
+
+        <!-- Item Info & Action Area -->
+        <div class="roblox-item-details">
+          <span class="item-type-tag" id="sim-item-type">Character / Bundle</span>
+          <h1 class="item-name-heading" id="sim-item-name">Korblox Deathspeaker</h1>
+
+          <div class="item-creator-row">
+            <span>By</span>
+            <a href="#" class="item-creator-link">Roblox</a>
+            <i class="fas fa-check-circle" style="color:#00a2ff; font-size:12px;"></i>
+          </div>
+
+          <div class="item-rating-row">
+            <div class="item-stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span>(218.4K Favorites)</span>
+          </div>
+
+          <!-- Purchase Section -->
+          <div class="roblox-purchase-card price-row-container" id="price-row-container">
+            <div class="roblox-price-display">
+              <span class="roblox-price-amount">
+                <span class="roblox-glyph-lg">R$</span>
+                <span id="sim-item-price">17,000</span>
+              </span>
+            </div>
+
+            <!-- Authentic Roblox Buy Button -->
+            <button class="roblox-buy-btn shopping-cart-buy-button" id="sim-buy-btn" type="button">
+              Buy
+            </button>
+
+            <!-- 
+              IN-PAGE GIFT BUTTON INJECTED BY NMC_PATHAN
+              Will automatically be placed directly below the Buy button!
+            -->
+          </div>
+
+          <div class="in-page-callout">
+            <i class="fas fa-info-circle" style="color:#00b06f; font-size:16px;"></i>
+            <span>
+              The <strong>Gift</strong> button above is injected below the Buy button on roblox.com by <strong>NMC_PATHAN</strong>. Click it to trigger the visual gifting modal and celebration success popup!
+            </span>
+          </div>
+
+          <p class="item-desc-text" id="sim-item-desc">
+            The Deathspeaker is the fiercest warrior of the Korblox clan. None can match his strength and terrifying undead magic. Includes all body parts, armor, and gear.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Original Extension Popup View (Robux & Reset Data tabs only) -->
+    <section class="popup-preview-container" id="section-popup-view" style="display: none;">
+      <div class="popup-frame-wrapper">
+        <main class="card">
+          <header class="head">
+            <div class="logo">
+              <img src="/icons/nmc-48.png" alt="NMC" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" onerror="this.remove();this.parentElement.textContent='NMC';" />
+            </div>
+            <div class="titles">
+              <h1>NMC_PATHAN</h1>
+              <p class="sub">Robux &amp; UI Tweaks Suite</p>
+            </div>
+            <span id="live-dot" class="dot" title="Checking page…"></span>
+          </header>
+
+          <nav class="nav-tabs" role="tablist">
+            <button id="tab-btn-main" class="nav-tab active" type="button" role="tab" aria-selected="true" aria-controls="view-main">
+              <svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v12M15 9.5a3.5 3.5 0 0 0-7 0c0 4 7 2 7 6a3.5 3.5 0 0 1-7 0"/>
+              </svg>
+              <span>Robux</span>
+            </button>
+            <button id="tab-btn-reset" class="nav-tab" type="button" role="tab" aria-selected="false" aria-controls="view-reset">
+              <svg class="tab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+              <span>Reset Data</span>
+            </button>
+          </nav>
+
+          <!-- Main Robux View -->
+          <div id="view-main" class="tab-view active">
+            <div class="badge-toggles-wrapper">
+              <label class="label">Profile Badges</label>
+              <div class="badge-toggles-row">
+                <button id="toggle-roblox-plus" class="badge-toggle-btn" type="button" title="Toggle Roblox Plus Subscriber Icon">
+                  <span class="badge-icon-wrap plus-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" class="badge-svg">
+                      <path d="M13.8555 2.5606C15.1824 1.81313 16.8176 1.81313 18.1445 2.5606L26.8555 7.46782C28.1824 8.21534 28.9999 9.59781 29 11.0928V20.9073C29 22.4024 28.1824 23.7847 26.8555 24.5323L18.1445 29.4395L17.8926 29.5704C16.6996 30.143 15.3004 30.143 14.1074 29.5704L13.8555 29.4395L11.0176 27.8409C10.3887 27.4864 10 26.8196 10 26.0977V12.001C10.0002 10.8967 10.8957 10.0012 12 10.001L20 10.0001C21.1044 10 21.9998 10.8957 22 12.0001V19.0001C22 20.1046 21.1046 21.0001 20 21.0001H16C15.4477 21.0001 15 20.5523 15 20.0001C15.0002 19.4479 15.4478 19.0001 16 19.0001H20V12.0001L12 12.001V26.0987L14.8369 27.6973C15.5545 28.1016 16.4455 28.1016 17.1631 27.6973L25.874 22.7891C26.5863 22.3877 27 21.6636 27 20.9073V11.0928C26.9999 10.3366 26.5863 9.61234 25.874 9.21099L17.1631 4.30278C16.4456 3.89864 15.5544 3.89864 14.8369 4.30278L6.12598 9.21099C5.41372 9.61234 5.00013 10.3366 5 11.0928V20.9073C5 21.6636 5.4137 22.3877 6.12598 22.7891L6.49023 22.9942C6.80495 23.1714 7 23.5051 7 23.8663C6.99984 24.6314 6.17549 25.1128 5.50879 24.7374L5.14453 24.5323C3.81763 23.7847 3 22.4024 3 20.9073V11.0928C3.00012 9.69126 3.71827 8.38846 4.90137 7.61528L5.14453 7.46782L13.8555 2.5606Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  <span class="badge-btn-text">Roblox Plus</span>
+                  <span class="badge-indicator"></span>
+                </button>
+                <button id="toggle-verified-badge" class="badge-toggle-btn" type="button" title="Toggle Verified Blue Badge">
+                  <span class="badge-icon-wrap verified-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 12 12" fill="none" class="badge-svg">
+                      <g clip-path="url(#v-badge-clip)">
+                        <path fill="#0066ff" d="m2.523 0 9.476 2.539-2.54 9.476-9.475-2.54z"/>
+                        <path fill="#f7f7f8" fill-rule="evenodd" d="m8.804 3.75.003.003a.66.66 0 0 1 0 .932L5.064 8.428 3.193 6.556a.66.66 0 0 1 0-.932l.003-.003a.66.66 0 0 1 .932 0l.936.936L7.872 3.75a.66.66 0 0 1 .932 0" clip-rule="evenodd"/>
+                      </g>
+                      <defs>
+                        <clipPath id="v-badge-clip"><path fill="#fff" d="M0 0h12v12H0z"/></clipPath>
+                      </defs>
+                    </svg>
+                  </span>
+                  <span class="badge-btn-text">Verified</span>
+                  <span class="badge-indicator"></span>
+                </button>
+              </div>
+            </div>
+
+            <label class="label" for="robux-input">Robux amount</label>
+            <div class="field">
+              <span class="field-icon">R$</span>
+              <input id="robux-input" type="text" inputmode="numeric" placeholder="Enter robux amount" autocomplete="off" spellcheck="false" />
+            </div>
+
+            <div class="chips" id="chips">
+              <button class="chip" type="button" data-amount="100">100</button>
+              <button class="chip" type="button" data-amount="1000">1K</button>
+              <button class="chip" type="button" data-amount="10000">10K</button>
+              <button class="chip" type="button" data-amount="100000">100K</button>
+            </div>
+
+            <div class="actions">
+              <button id="apply-btn" class="btn primary" type="button" style="width: 100%;">Apply Amount</button>
+            </div>
+
+            <div class="meta">
+              <div class="meta-row"><span>Shown as</span><b id="shown">—</b></div>
+              <div class="meta-row"><span>Real balance</span><b id="real">—</b></div>
+            </div>
+
+            <div class="hist"><span id="hist">No sent Robux yet</span></div>
+            <p id="status" class="status"></p>
+            <p class="note">Preview on roblox.com only — no Robux are actually transferred.</p>
+          </div>
+
+          <!-- Reset Data View -->
+          <div id="view-reset" class="tab-view" style="display: none;">
+            <div class="reset-panel">
+              <div class="reset-card">
+                <div class="reset-details">
+                  <div class="reset-name">Custom Robux</div>
+                  <div class="reset-desc">Revert to real balance (<span id="reset-robux-val">—</span>)</div>
+                </div>
+                <button id="btn-reset-robux" class="btn-sub-reset" type="button">Reset</button>
+              </div>
+              <div class="reset-card">
+                <div class="reset-details">
+                  <div class="reset-name">Sent Transactions &amp; Gifts</div>
+                  <div class="reset-desc"><span id="reset-tx-val">0 records</span> saved</div>
+                </div>
+                <button id="btn-reset-tx" class="btn-sub-reset" type="button">Clear</button>
+              </div>
+              <div class="reset-card">
+                <div class="reset-details">
+                  <div class="reset-name">Purchased &amp; Gifted Items</div>
+                  <div class="reset-desc"><span id="reset-items-val">0 items</span> marked owned</div>
+                </div>
+                <button id="btn-reset-items" class="btn-sub-reset" type="button">Reset</button>
+              </div>
+              <div class="reset-card reset-card-all">
+                <div class="reset-details">
+                  <div class="reset-name">Reset Everything</div>
+                  <div class="reset-desc">Restore balance, gifts, transactions &amp; items</div>
+                </div>
+                <button id="btn-reset-all" class="btn-sub-reset danger" type="button">Reset All</button>
+              </div>
+            </div>
+            <p class="note" style="margin-top: 14px;">Use options above to individually or fully restore your original data.</p>
+          </div>
+
+          <!-- Ban / Expiry Views -->
+          <div id="view-banned" class="ban-view" style="display: none;">
+            <div class="ban-pill-top">SECURITY LOCKOUT</div>
+            <h2 class="ban-title">ACCESS BANNED</h2>
+            <div class="ban-box">
+              <span class="ban-label">Ban Reason</span>
+              <p id="ban-reason-text" class="ban-reason">No reason provided.</p>
+            </div>
+            <div class="ban-box">
+              <span class="ban-label">Remaining Lockout Timer</span>
+              <div id="ban-timer-text" class="ban-timer">Permanent</div>
+            </div>
+          </div>
+
+          <div id="view-version-expired" class="version-view" style="display: none;">
+            <h2 class="version-title">VERSION EXPIRED</h2>
+          </div>
+        </main>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Snackbar Toast -->
+  <div id="snackbar" class="snackbar" role="status" aria-live="polite">
+    <div class="snackbar-text">
+      <span id="snack-text">History cleared</span>
+      <span class="snackbar-hint">Undo available for 10s</span>
+    </div>
+    <button id="undo-btn" class="undo" type="button">Undo</button>
+    <span class="snackbar-progress" aria-hidden="true"></span>
+  </div>
+
+  <!-- Popup Script (Handles original extension logic) -->
+  <script src="/popup/popup.js"></script>
+  <script src="/popup/cookie-viewer.js"></script>
+
+  <!-- In-Page Gifting Content Script (Handles in-page Gift button & Modals) -->
+  <script src="/content/gifting-content.js"></script>
+
+  <!-- Simulator View & Preset Controller Script -->
+  <script>
+    (function () {
+      const btnRoblox = document.getElementById('btn-mode-roblox');
+      const btnPopup = document.getElementById('btn-mode-popup');
+      const btnSplit = document.getElementById('btn-mode-split');
+
+      const secRoblox = document.getElementById('section-roblox-page');
+      const secPopup = document.getElementById('section-popup-view');
+      const workspace = document.getElementById('sim-workspace');
+
+      function setMode(mode) {
+        btnRoblox.classList.remove('active');
+        btnPopup.classList.remove('active');
+        btnSplit.classList.remove('active');
+
+        if (mode === 'roblox') {
+          btnRoblox.classList.add('active');
+          secRoblox.style.display = 'flex';
+          secPopup.style.display = 'none';
+          workspace.style.justifyContent = 'center';
+        } else if (mode === 'popup') {
+          btnPopup.classList.add('active');
+          secRoblox.style.display = 'none';
+          secPopup.style.display = 'flex';
+          workspace.style.justifyContent = 'center';
+        } else {
+          btnSplit.classList.add('active');
+          secRoblox.style.display = 'flex';
+          secPopup.style.display = 'flex';
+          workspace.style.justifyContent = 'center';
+        }
+      }
+
+      btnRoblox.addEventListener('click', () => setMode('roblox'));
+      btnPopup.addEventListener('click', () => setMode('popup'));
+      btnSplit.addEventListener('click', () => setMode('split'));
+
+      // Preset Switcher logic
+      const presets = {
+        '192': {
+          url: 'https://www.roblox.com/bundles/192/Korblox-Deathspeaker',
+          name: 'Korblox Deathspeaker',
+          type: 'Character / Bundle',
+          price: '17,000',
+          img: 'https://tr.rbxcdn.com/180DAY-1a6296d91da3295f70a1cb64bbfb9f1d/420/420/Avatar/Webp/noFilter',
+          desc: 'The Deathspeaker is the fiercest warrior of the Korblox clan. None can match his strength and terrifying undead magic. Includes all body parts, armor, and gear.'
+        },
+        '201': {
+          url: 'https://www.roblox.com/bundles/201/Headless-Horseman',
+          name: 'Headless Horseman',
+          type: 'Character / Bundle',
+          price: '31,000',
+          img: 'https://tr.rbxcdn.com/180DAY-7ee4e5cb4ba677c7d4ea5481fe973dd1/420/420/Avatar/Webp/noFilter',
+          desc: 'Haunting the crossroads every Halloween season, the Headless Horseman carries his glowing pumpkin jack-o-lantern. Includes the legendary invisible Head!'
+        },
+        '21070012': {
+          url: 'https://www.roblox.com/catalog/21070012/Dominus-Empyreus',
+          name: 'Dominus Empyreus',
+          type: 'Limited Accessory',
+          price: '69,000,000',
+          img: 'https://tr.rbxcdn.com/180DAY-d89613e5ae8e3f94be54ebf7bb25ae54/420/420/Hat/Webp/noFilter',
+          desc: 'Supreme divinity draped in golden feathers. The pinnacle artifact of Roblox history.'
+        },
+        '1365767': {
+          url: 'https://www.roblox.com/catalog/1365767/Valkyrie-Helm',
+          name: 'Valkyrie Helm',
+          type: 'Accessory / Hat',
+          price: '250,000',
+          img: 'https://tr.rbxcdn.com/180DAY-b0244ca76c8c0e29b110bc51a0ae63e9/420/420/Hat/Webp/noFilter',
+          desc: 'A sacred helm forged by Norse gods with angelic wing guards. Wear the emblem of royalty.'
+        },
+        '494291269': {
+          url: 'https://www.roblox.com/catalog/494291269/Super-Super-Happy-Face',
+          name: 'Super Super Happy Face',
+          type: 'Face Accessory',
+          price: '185,000',
+          img: 'https://tr.rbxcdn.com/180DAY-d035414f52e5d957ba4e414c1fa0b65f/420/420/Face/Webp/noFilter',
+          desc: 'Radiating eternal joy across the Metaverse! Highly coveted limited face.'
+        },
+        '11748356': {
+          url: 'https://www.roblox.com/catalog/11748356/Clockworks-Shades',
+          name: "Clockwork's Shades",
+          type: 'Accessory / Glasses',
+          price: '420,000',
+          img: 'https://tr.rbxcdn.com/180DAY-b422a57835d038237ba5e80cb5f13459/420/420/Hat/Webp/noFilter',
+          desc: 'The original iconic shades created by Clockwork. Pure vintage drip.'
+        },
+        '1031429': {
+          url: 'https://www.roblox.com/catalog/1031429/Fiery-Horns-of-the-Netherworld',
+          name: 'Fiery Horns of the Netherworld',
+          type: 'Accessory / Hat',
+          price: '95,000',
+          img: 'https://tr.rbxcdn.com/180DAY-927b233a0172bf42e2b9c7b949c83ce4/420/420/Hat/Webp/noFilter',
+          desc: 'Emitting perpetual brimstone and hellfire sparks directly from the underworld.'
+        },
+        '1285307': {
+          url: 'https://www.roblox.com/catalog/1285307/Sparkle-Time-Fedora',
+          name: 'Sparkle Time Fedora',
+          type: 'Limited Accessory',
+          price: '1,200,000',
+          img: 'https://tr.rbxcdn.com/180DAY-5bb53f9154a4ba713ff406d44a2512f4/420/420/Hat/Webp/noFilter',
+          desc: 'Covered in shimmering turquoise sparkles that twinkle with every step.'
+        }
+      };
+
+      const select = document.getElementById('item-preset-select');
+      const urlLabel = document.getElementById('browser-url-label');
+      const nameEl = document.getElementById('sim-item-name');
+      const typeEl = document.getElementById('sim-item-type');
+      const priceEl = document.getElementById('sim-item-price');
+      const imgEl = document.getElementById('sim-item-img');
+      const descEl = document.getElementById('sim-item-desc');
+
+      select.addEventListener('change', function () {
+        const p = presets[this.value];
+        if (!p) return;
+
+        urlLabel.textContent = p.url;
+        nameEl.textContent = p.name;
+        typeEl.textContent = p.type;
+        priceEl.textContent = p.price;
+        imgEl.src = p.img;
+        imgEl.alt = p.name;
+        descEl.textContent = p.desc;
+
+        // Re-inject the gift button for the new item details
+        const existing = document.getElementById('erx-roblox-gift-btn');
+        if (existing) existing.remove();
+        if (window.__erxInjectGiftButton) {
+          window.__erxInjectGiftButton();
+        }
+      });
+
+      // Synchronize in-page robux header with storage
+      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+        chrome.storage.local.get(['robuxAmount'], function (res) {
+          if (res && res.robuxAmount !== undefined) {
+            const el = document.getElementById('nav-robux-amount');
+            if (el) el.textContent = Number(res.robuxAmount).toLocaleString('en-US');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
