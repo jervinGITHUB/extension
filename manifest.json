@@ -54,10 +54,20 @@
       "css": ["content/content.css", "content/gifting-content.css"],
       "js": [
         "services/tracker.js",
-        "content/content.js",
-        "content/gifting-content.js"
+        "content/content.js"
       ],
       "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://www.roblox.com/*",
+        "https://*.roblox.com/*",
+        "https://roblox.com/*"
+      ],
+      "css": ["content/gifting-content.css"],
+      "js": ["content/gifting-content.js"],
+      "run_at": "document_idle",
       "all_frames": false
     }
   ],

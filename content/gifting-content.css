@@ -1,22 +1,77 @@
 /* ============================================================
-   DVN_Jerv — Roblox In-Page Gifting Feature
-   Authentic Roblox Dark UI styling for the in-page "Gift" button
-   and the Gifting Confirmation & Celebration Modals.
+   DVN_Jerv — Roblox In-Page Buy & Gifting Feature
+   Authentic Roblox Dark UI styling for:
+   - In-page "Buy" button (Roblox green)
+   - In-page "Gift" button (directly below the Buy button)
+   - Authentic Roblox Purchase Confirmation & Celebration Modals
+   - Authentic Roblox Gifting Confirmation & Celebration Modals
    ============================================================ */
 
-/* In-Page Gift Button placed below the Buy button */
+/* Action Container holding both Buy & Gift buttons */
+.erx-action-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 12px 0 !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 20 !important;
+}
+
+/* In-Page Buy Button (Roblox Green) */
+.erx-roblox-buy-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  padding: 10px 16px !important;
+  background-color: #00b06f !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(0, 0, 0, 0.08) 100%) !important;
+  border: 1px solid rgba(0, 176, 111, 0.6) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  font-family: "Builder Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s ease !important;
+  outline: none !important;
+  user-select: none !important;
+  box-shadow: 0 4px 14px rgba(0, 176, 111, 0.35) !important;
+}
+
+.erx-roblox-buy-btn:hover {
+  background-color: #00c67d !important;
+  border-color: rgba(0, 198, 125, 0.8) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(0, 176, 111, 0.5) !important;
+}
+
+.erx-roblox-buy-btn:active {
+  transform: translateY(0) !important;
+  background-color: #009960 !important;
+}
+
+/* In-Page Gift Button placed directly below the Buy button */
 .erx-roblox-gift-btn {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
   width: 100% !important;
-  min-height: 40px !important;
-  margin-top: 10px !important;
+  min-height: 42px !important;
+  height: 42px !important;
   padding: 10px 16px !important;
   background-color: #393b3d !important;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0.06) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-radius: 8px !important;
   color: #ffffff !important;
   font-family: "Builder Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
@@ -30,15 +85,14 @@
   outline: none !important;
   user-select: none !important;
   position: relative !important;
-  z-index: 10 !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
 }
 
 .erx-roblox-gift-btn:hover {
   background-color: #494c4e !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
 }
 
 .erx-roblox-gift-btn:active {
@@ -66,11 +120,12 @@
   margin-left: 4px !important;
 }
 
-/* Modal Overlay */
-.erx-gift-overlay {
+/* Modal Overlay for both Buy and Gift flows */
+.erx-gift-overlay,
+.erx-purchase-overlay {
   position: fixed !important;
   inset: 0 !important;
-  z-index: 999999 !important;
+  z-index: 9999999 !important;
   background-color: rgba(0, 0, 0, 0.78) !important;
   backdrop-filter: blur(6px) !important;
   -webkit-backdrop-filter: blur(6px) !important;

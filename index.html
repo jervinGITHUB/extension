@@ -544,9 +544,16 @@
         <div class="roblox-nav-right">
           <div class="roblox-balance-pill" title="Current Robux Balance">
             <span style="color:#00b06f; font-weight:900;">R$</span>
-            <span id="nav-robux-amount">50,000</span>
+            <span id="nav-robux-amount">99,800</span>
           </div>
-          <div class="roblox-user-avatar" title="Logged in as Player">P</div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#fff;">
+            <div class="roblox-user-avatar" title="Logged in as DVNgiver">D</div>
+            <span>DVNgiver</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 12 12" fill="none">
+              <path fill="#0066ff" d="m2.523 0 9.476 2.539-2.54 9.476-9.475-2.54z"/>
+              <path fill="#f7f7f8" fill-rule="evenodd" d="m8.804 3.75.003.003a.66.66 0 0 1 0 .932L5.064 8.428 3.193 6.556a.66.66 0 0 1 0-.932l.003-.003a.66.66 0 0 1 .932 0l.936.936L7.872 3.75a.66.66 0 0 1 .932 0" clip-rule="evenodd"/>
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -591,14 +598,15 @@
 
           <!-- Purchase Section -->
           <div class="roblox-purchase-card price-row-container" id="price-row-container">
-            <div class="roblox-price-display">
-              <span class="roblox-price-amount">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:14px; color:#9ba1a6; font-weight:600;">Price</span>
+              <div class="roblox-price-amount">
                 <span class="roblox-glyph-lg">R$</span>
                 <span id="sim-item-price">17,000</span>
-              </span>
+              </div>
             </div>
 
-            <!-- Authentic Roblox Buy Button -->
+            <!-- Authentic Roblox Buy Button (Green) -->
             <button class="roblox-buy-btn shopping-cart-buy-button" id="sim-buy-btn" type="button">
               Buy
             </button>
@@ -607,18 +615,53 @@
               IN-PAGE GIFT BUTTON INJECTED BY DVN_Jerv
               Will automatically be placed directly below the Buy button!
             -->
+
+            <!-- 3rd-Party RoEarn Button (as seen in user's browser) -->
+            <button class="roblox-roearn-btn" type="button" style="width:100%; height:40px; background:linear-gradient(90deg, #b043ff, #8428ff); border:none; border-radius:8px; color:#ffffff; font-weight:700; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:0 4px 14px rgba(132,40,255,0.35);">
+              <span>Buy with RoEarn (Earn 1,190)</span>
+            </button>
           </div>
 
-          <div class="in-page-callout">
-            <i class="fas fa-info-circle" style="color:#00b06f; font-size:16px;"></i>
-            <span>
-              The <strong>Gift</strong> button above is injected below the Buy button on roblox.com by <strong>DVN_Jerv</strong>. Click it to trigger the visual gifting modal and celebration success popup!
-            </span>
+          <!-- Specs Table matching Roblox Live Page -->
+          <div style="background:#191b1d; border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:16px; display:flex; flex-direction:column; gap:10px; font-size:13px;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9ba1a6;">Tradable</span><b style="color:#fff;">No</b></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9ba1a6;">Type</span><b style="color:#fff;" id="sim-spec-type">Characters</b></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9ba1a6;">Placement</span><b style="color:#fff;">Full Body</b></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#9ba1a6;">Created</span><b style="color:#fff;">Aug 15, 2018</b></div>
+            <div style="display:flex; flex-direction:column; gap:4px; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;">
+              <span style="color:#9ba1a6;">Description</span>
+              <p class="item-desc-text" id="sim-item-desc" style="margin:0; font-size:13px; color:rgba(255,255,255,0.85); line-height:1.5;">
+                His tribe is widely considered the best and strongest of the twelve Korblox tribes. No one dares challenge his authority.
+              </p>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <p class="item-desc-text" id="sim-item-desc">
-            The Deathspeaker is the fiercest warrior of the Korblox clan. None can match his strength and terrifying undead magic. Includes all body parts, armor, and gear.
-          </p>
+      <!-- Recommendations Carousel (Simulated) -->
+      <div style="border-top:1px solid rgba(255,255,255,0.08); padding:20px 36px 28px; background:#141619;">
+        <h3 style="font-size:16px; font-weight:700; color:#fff; margin-bottom:14px;">Recommendations</h3>
+        <div style="display:flex; gap:16px; overflow-x:auto; padding-bottom:6px;">
+          <div style="background:#232527; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px; width:110px; flex-shrink:0; text-align:center;">
+            <div style="height:90px; display:flex; align-items:center; justify-content:center; font-size:32px;">💀</div>
+            <div style="font-size:11px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Korblox Lord</div>
+            <div style="font-size:11px; color:#00b06f; font-weight:700;">R$ 2,430</div>
+          </div>
+          <div style="background:#232527; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px; width:110px; flex-shrink:0; text-align:center;">
+            <div style="height:90px; display:flex; align-items:center; justify-content:center; font-size:32px;">🦴</div>
+            <div style="font-size:11px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Skeleton</div>
+            <div style="font-size:11px; color:#00b06f; font-weight:700;">R$ 270</div>
+          </div>
+          <div style="background:#232527; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px; width:110px; flex-shrink:0; text-align:center;">
+            <div style="height:90px; display:flex; align-items:center; justify-content:center; font-size:32px;">🏴‍☠️</div>
+            <div style="font-size:11px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Pirate Swash</div>
+            <div style="font-size:11px; color:#00b06f; font-weight:700;">R$ 216</div>
+          </div>
+          <div style="background:#232527; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px; width:110px; flex-shrink:0; text-align:center;">
+            <div style="height:90px; display:flex; align-items:center; justify-content:center; font-size:32px;">🐴</div>
+            <div style="font-size:11px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Headless</div>
+            <div style="font-size:11px; color:#00b06f; font-weight:700;">R$ 31,000</div>
+          </div>
         </div>
       </div>
     </section>
@@ -915,13 +958,37 @@
         imgEl.alt = p.name;
         descEl.textContent = p.desc;
 
-        // Re-inject the gift button for the new item details
-        const existing = document.getElementById('erx-roblox-gift-btn');
+        const specType = document.getElementById('sim-spec-type');
+        if (specType) specType.textContent = p.type;
+
+        // Re-inject the action buttons for the new item details
+        const existing = document.getElementById('erx-action-container') || document.getElementById('erx-roblox-gift-btn');
         if (existing) existing.remove();
-        if (window.__erxInjectGiftButton) {
+        if (window.__erxInjectActionButtons) {
+          window.__erxInjectActionButtons();
+        } else if (window.__erxInjectGiftButton) {
           window.__erxInjectGiftButton();
         }
       });
+
+      // Wire simulator native buy button to open purchase modal as well
+      const simBuyBtn = document.getElementById('sim-buy-btn');
+      if (simBuyBtn) {
+        simBuyBtn.addEventListener('click', function () {
+          const val = select.value || '192';
+          const p = presets[val] || presets['192'];
+          if (window.__erxOpenPurchaseModal) {
+            window.__erxOpenPurchaseModal({
+              id: val,
+              name: p.name,
+              category: p.type,
+              price: parseInt(p.price.replace(/\D+/g, ''), 10) || 17000,
+              image: p.img,
+              creator: 'Roblox'
+            });
+          }
+        });
+      }
 
       // Synchronize in-page robux header with storage
       if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
